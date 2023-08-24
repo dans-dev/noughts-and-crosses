@@ -17,6 +17,8 @@ void draw_grid(int x, int y) {
 
 }
 
+
+// Fills the noughts and crosses grid with the noughts and the crosses.
 void fill_grid(int x, int y, int items[9]) {
 
     int i = 0;
@@ -44,6 +46,26 @@ void fill_grid(int x, int y, int items[9]) {
     }
 }
 
+
+
+void draw_menu(int option) {
+
+    move(1,2);
+    printw("__   __           _____");
+    move(2,2);
+    printw("\\ \\ / /   ___    |  _  |");
+    move(3,2);
+    printw(" \\ V /   ( _ )   | | | | ");
+    move(4,2);
+    printw(" /   \\   / _ \\/\\ | | | | ");
+    move(5,2);
+    printw("/ /^\\ \\ | (_>  < \\ \\_/ / ");
+    move(6,2);
+    printw("\\/   \\/  \\___/\\/  \\___/  ");
+                            
+}
+
+
 // Main function to run the game.
 int main() {
 
@@ -58,10 +80,11 @@ int main() {
 
     int cursorPosition[2] = {0,0};
 
-
-
+    draw_menu(1);
+    /*
     draw_grid(gridX, gridY);
     fill_grid(gridX, gridY, items);
+    */
     int input = getch();
     endwin();
 
