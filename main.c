@@ -47,7 +47,7 @@ void fill_grid(int x, int y, int items[9]) {
 }
 
 
-
+// Draws the menu to the screen.
 void draw_menu(int option) {
 
     move(1,2);
@@ -62,7 +62,15 @@ void draw_menu(int option) {
     printw("/ /^\\ \\ | (_>  < \\ \\_/ / ");
     move(6,2);
     printw("\\/   \\/  \\___/\\/  \\___/  ");
-                            
+    move(8,4);
+    printw("Play a Human");
+    move(10,4);
+    printw("Play a Bot (Easy)");
+    move(12,4);
+    printw("Play a Bot (Medium)");
+    move(14,4);
+    printw("Play a Bot (Hard)");
+    move(8+option*2, 2);                   
 }
 
 
@@ -71,21 +79,58 @@ int main() {
 
     setlocale(LC_CTYPE, ""); // Adds unicode character support by setting locale.
     initscr();
+    timeout(0);
     noecho();
+    cbreak();
+    keypad(stdscr, TRUE);
     start_color(); // Allows colour to be used in future.
 
-    int items[9] = {1, 2, 0, 0, 1, 2, 2, 0, 1};
-    int gridX = 0;
-    int gridY = 0;
+    int mode = 0; // (0, main menu) (1, PvP) (2, PvE easy) (3, PvE medium) (4, PvE hard) (5, result screen) (6, end)
+    int option = 0;
+    int input = 0;
+    int player = 1;
+    int cursorPosition = 0;
+    int items[9] = {0};
+    int gridX = 1;
+    int gridY = 1;
 
-    int cursorPosition[2] = {0,0};
 
-    draw_menu(1);
+
+    while(mode != 6) {
+        switch(mode) {
+            case 0:
+                draw_menu(option);
+                if (input == 'w' ||  input == KEY_UP) {
+                    option--;
+                    if (option < 0) option = 3;
+                }
+
+                if (input == 's' ||  input == KEY_DOWN) {
+                    option++;
+                    if (option > 3) option = 0;
+                }
+
+                if (input == ' ') {
+                    mode = option+1;
+                }
+                break;
+
+            case 1:
+                draw_grid(gridX, gridY);
+                fill_grid(gridX, gridY, items);
+                break;
+
+        }
+
+        input =  wgetch(stdscr);
+        refresh();
+        erase();
+    }
+    
     /*
     draw_grid(gridX, gridY);
     fill_grid(gridX, gridY, items);
     */
-    int input = getch();
     endwin();
 
 }
