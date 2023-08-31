@@ -94,26 +94,29 @@ int main() {
     int gridX = 1;
     int gridY = 1;
 
-
-
     while(mode != 6) {
         switch(mode) {
             case 0:
                 draw_menu(option);
-                if (input == 'w' ||  input == KEY_UP) {
-                    option--;
-                    if (option < 0) option = 3;
-                }
 
-                if (input == 's' ||  input == KEY_DOWN) {
-                    option++;
-                    if (option > 3) option = 0;
-                }
+                switch(input) { // Keyboard logic for main menu
 
-                if (input == ' ') {
-                    mode = option+1;
+                    case 'w':
+                    case KEY_UP:
+                        option--;
+                        if (option < 0) option = 3;
+                        break;
+                    
+                    case 's':
+                    case KEY_DOWN:
+                        option++;
+                        if (option > 3) option = 0;
+                        break;
+
+                    case ' ':
+                        mode = option+1;
+                        break;
                 }
-                break;
 
             case 1:
                 draw_grid(gridX, gridY);
@@ -127,10 +130,6 @@ int main() {
         erase();
     }
     
-    /*
-    draw_grid(gridX, gridY);
-    fill_grid(gridX, gridY, items);
-    */
     endwin();
 
 }
