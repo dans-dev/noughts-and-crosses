@@ -74,6 +74,42 @@ void draw_menu(int option) {
 }
 
 
+// Makes use of the terminal cursor and draws a block where the cursor is positioned.
+void draw_cursor(int cursorX, int cursorY, int gridX, int gridY) {
+
+    move(gridY+(2*cursorY), gridX+1+(4*cursorX));
+    printw("█");
+}
+
+
+// Manages user input for the 4 different play modes.
+void handle_user(int player, int input, int * cursorX, int * cursorY, int * items) {
+
+    switch(input) {
+        case 'w':
+        case KEY_UP:
+
+            break;
+                    
+        case 's':
+        case KEY_DOWN:
+            break;
+
+        case 'a':
+        case KEY_LEFT:
+            break;
+
+        case 'd':
+        case KEY_RIGHT:
+            break;
+        
+        case ' ':
+            break;
+    }
+
+}
+
+
 // Main function to run the game.
 int main() {
 
@@ -89,7 +125,8 @@ int main() {
     int option = 0;
     int input = 0;
     int player = 1;
-    int cursorPosition = 0;
+    int cursorX = 1;
+    int cursorY = 1;
     int items[9] = {0};
     int gridX = 1;
     int gridY = 1;
